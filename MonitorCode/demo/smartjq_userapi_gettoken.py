@@ -13,15 +13,11 @@ def fun_timer():
     global successCount
     global errorCount
     headers = {'content-type': 'application/json',
-               'Authorization': 'fcdadd5c3e140eb6bc9dc935365ec24f'
+               'sign': '921A6CD22FD7A59456B980BB1A2AA2D680CC732FD210D8BA3174734B61610E87'
                }
-    data = {'mapType': 2,
-            'orgId': 122
-            }
     timeBeforeRequest = time.time()  # 请求前
-    r = requests.post(
-        'https://www.car-day.cn/api-service/services/vehicle/queryObdLocation',
-        data=json.dumps(data),
+    r = requests.get(
+        'http://211.136.105.113/smartjq-prod/user/api/v1/app/baseuser/getTokenByUserId?userId=fa10a91b-4356-46ab-8eaa-95c79011cd00',
         headers=headers)
     # 需要配置header参数
     result = r.json()
@@ -30,29 +26,29 @@ def fun_timer():
 
     if r.status_code < 400:
         if result['status'] == '0000_0':
-            print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())), 'ObdLocation接口执行成功，使用时间：', timeSpend,
+            print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())), 'GetToken接口执行成功，使用时间：', timeSpend,
                   'ms')
             successCount = successCount + 1
         else:
-            print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())), 'ObdLocation接口执行失败，使用时间：', timeSpend,
+            print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())), 'GetToken接口执行失败，使用时间：', timeSpend,
                   'ms', r.text)
             errorCount = errorCount + 1
             file_object = open('log.txt', 'a')
             try:
                 tempstr = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(
-                    time.time())) + ' ObdLocation接口执行失败，http状态' + str(r.status_code) + '，使用时间：' + str(
+                    time.time())) + ' GetToken接口执行失败，http状态' + str(r.status_code) + '，使用时间：' + str(
                     timeSpend) + 'ms，' + r.text
                 file_object.write(tempstr)
                 file_object.write('\n')
             finally:
                 file_object.close()
     else:
-        print('ObdLocation接口执行失败，http状态：', r.status_code, '，使用时间：', timeSpend, 'ms', r.text)
+        print('GetToken接口执行失败，http状态：', r.status_code, '，使用时间：', timeSpend, 'ms', r.text)
         errorCount = errorCount + 1
         file_object = open('log.txt', 'a')
         try:
             tempstr = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(
-                time.time())) + ' ObdLocation接口执行失败，http状态' + str(r.status_code) + '，使用时间：' + str(
+                time.time())) + ' GetToken接口执行失败，http状态' + str(r.status_code) + '，使用时间：' + str(
                 timeSpend) + 'ms，' + r.text
             file_object.write(tempstr)
             file_object.write('\n')

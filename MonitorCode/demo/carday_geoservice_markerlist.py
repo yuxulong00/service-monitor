@@ -13,7 +13,7 @@ def fun_timer():
     global successCount
     global errorCount
     headers = {'content-type': 'application/json',
-               'Authorization': 'c63271cc86dcc4ee704df48e6f345197'
+               'Authorization': 'fcdadd5c3e140eb6bc9dc935365ec24f'
                }
     data = {'currentPage': 1,
             'geofenceName': None,
