@@ -2,14 +2,32 @@ import requests
 import threading
 import json
 import time
+import pymysql
+
+# demo
+# db = pymysql.connect("121.199.5.149", "root", "Gyg9w3t7xvmg9b2", "service_monitor")
+db = pymysql.connect(
+    host='121.199.5.149',
+    port=3306,
+    user='root',
+    password='Gyg9w3t7xvmg9b2',
+    db='service_monitor',
+    charset='utf8'
+)
+cursor = db.cursor()
+cursor.execute("INSERT INTO error(url,code,message) VALUES('http','0000_0','测试错误信息')")
+db.commit()
+cursor.close()
+db.close()
+# demo
 
 successCount = 0
 errorCount = 0
 
 
 def fun_timer():
-    timer = threading.Timer(1, fun_timer)
-    timer.start()
+    # timer = threading.Timer(1, fun_timer)
+    # timer.start()
     global successCount
     global errorCount
     headers = {'content-type': 'application/json',
